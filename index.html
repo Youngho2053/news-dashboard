@@ -2,6 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>뉴스 대시보드</title>
 <style>
   :root {
@@ -203,6 +204,43 @@
     margin-bottom: 12px;
     opacity: 0.5;
   }
+
+  /* 모바일 대응 */
+  @media (max-width: 700px) {
+    header { padding: 16px 18px; }
+    header h1 { font-size: 1.25rem; }
+    .layout { flex-direction: column; min-height: auto; }
+    nav {
+      width: 100%;
+      display: flex;
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+      padding: 0;
+      overflow-x: auto;
+    }
+    .folder-btn {
+      width: auto;
+      white-space: nowrap;
+      padding: 12px 16px;
+      border-left: none;
+      border-bottom: 3px solid transparent;
+    }
+    .folder-btn.active {
+      border-left-color: transparent;
+      border-bottom-color: var(--sky-dark);
+    }
+    main { padding: 18px 16px; }
+    .subtabs {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .subtab-btn { white-space: nowrap; flex-shrink: 0; }
+    .vc-deal-table { min-width: 720px; }
+    .news-card { padding: 14px 15px; }
+    .news-card h3 { font-size: 0.95rem; }
+  }
 </style>
 </head>
 <body>
@@ -225,16 +263,35 @@
   <main>
     <!-- Folder 1: 뉴스 클리핑 -->
     <section class="panel active" id="folder1">
-      <div class="update-banner">🕗 2026년 8월 27일(목) 기준 업데이트 · 국내 증시·환율·반도체주는 당일(8/27) 종가, 해외 증시는 최근 거래일(8/26 수) 현지 종가 기준 · 각 기사 출처는 카드 하단 링크 참고</div>
+      <div class="update-banner">🕗 2026년 8월 28일(금) 기준 업데이트 · M&amp;A / 경제 / 정치 / K-food / 세계 5개 카테고리 · 각 기사 출처는 카드 하단 링크 참고</div>
 
       <div class="subtabs">
         <button class="subtab-btn active" data-sub="mna">M&amp;A</button>
         <button class="subtab-btn" data-sub="econ">경제</button>
         <button class="subtab-btn" data-sub="politics">정치</button>
-        <button class="subtab-btn" data-sub="etc">기타</button>
+        <button class="subtab-btn" data-sub="kfood">K-food</button>
+        <button class="subtab-btn" data-sub="world">세계</button>
       </div>
 
       <div class="subpanel active" id="mna">
+        <p class="subsection-title">인수합병(M&amp;A) 딜 테이블 · 최근 주요 거래</p>
+        <div style="overflow-x:auto;">
+        <table class="vc-deal-table">
+          <thead>
+            <tr><th>시기</th><th>산업</th><th>Investor</th><th>Target</th><th>투자규모</th><th>Equity Value</th><th>Multiple</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>26.08.20</td><td>게임/콘텐츠</td><td>웹툰엔터테인먼트</td><td><a href="https://www.newstomato.com/ReadNews.aspx?no=1310565" target="_blank" rel="noopener">알아이게임즈홀딩스</a></td><td class="amount">1,420억원(1억달러, 지분 60%)</td><td>비공개</td><td>비공개</td></tr>
+            <tr><td>26.08.11</td><td>렌터카/모빌리티</td><td>TPG(텍사스퍼시픽그룹)</td><td><a href="https://www.ebn.co.kr/news/articleView.html?idxno=1720160" target="_blank" rel="noopener">롯데렌탈</a></td><td class="amount">1조3,105억원(지분 61.18%)</td><td>비공개</td><td>비공개</td></tr>
+            <tr><td>26.08.11</td><td>보험/금융지주</td><td>우리금융지주</td><td><a href="https://www.newspim.com/news/view/20260811001011" target="_blank" rel="noopener">동양생명</a></td><td class="amount">비공개(포괄적 주식교환)</td><td>비공개</td><td>비공개</td></tr>
+            <tr><td>26.07.31</td><td>반도체(웨이퍼)</td><td>㈜두산</td><td><a href="https://www.ebn.co.kr/news/articleView.html?idxno=1718708" target="_blank" rel="noopener">SK실트론</a></td><td class="amount">2조3,000억원(지분 70.6%)</td><td>비공개</td><td>비공개</td></tr>
+            <tr><td>26.07.30</td><td>에듀테크/IT</td><td>데이원컴퍼니</td><td><a href="https://outstanding.kr/press/2131/20260730" target="_blank" rel="noopener">백준온라인저지(BOJ)</a></td><td class="amount">비공개</td><td>비공개</td><td>비공개</td></tr>
+            <tr><td>26.06.07</td><td>생활가전(렌탈)</td><td>칼라일(The Carlyle Group)</td><td><a href="https://www.thepublic.kr/news/articleView.html?idxno=306787" target="_blank" rel="noopener">청호나이스</a></td><td class="amount">1조원대 초반(지분 100%)</td><td>비공개</td><td>비공개</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <p class="vc-note">Equity Value·Multiple(EV/EBITDA)은 출처 기사에 명시되지 않아 전부 비공개 처리 · 소시어스·웰투시의 엠앤씨솔루션, 테일러메이드 매각 건은 SPA 체결·거래완료가 확인되지 않아 제외 · 출처: <a href="https://www.newstomato.com/ReadNews.aspx?no=1310565" target="_blank" rel="noopener">뉴스토마토(웹툰엔터)</a>, <a href="https://www.ebn.co.kr/news/articleView.html?idxno=1720160" target="_blank" rel="noopener">EBN(롯데렌탈)</a>, <a href="https://www.newspim.com/news/view/20260811001011" target="_blank" rel="noopener">뉴스핌(동양생명)</a>, <a href="https://www.ebn.co.kr/news/articleView.html?idxno=1718708" target="_blank" rel="noopener">EBN(SK실트론)</a>, <a href="https://outstanding.kr/press/2131/20260730" target="_blank" rel="noopener">아웃스탠딩(백준온라인저지)</a>, <a href="https://www.thepublic.kr/news/articleView.html?idxno=306787" target="_blank" rel="noopener">더퍼블릭(청호나이스)</a></p>
+
         <p class="subsection-title">The VC · 최근 1개월 주요 투자유치 딜 (2026.07.28 ~ 08.27)</p>
         <div style="overflow-x:auto;">
         <table class="vc-deal-table">
@@ -284,28 +341,34 @@
 
       <div class="subpanel" id="econ">
         <div class="news-card">
-          <span class="tag">국장</span>
-          <h3><a href="https://www.ajunews.com/view/20260827153508146" target="_blank" rel="noopener">코스피, 금통위 금리인상에도 엔비디아 훈풍 업고 1.53% 오른 6912선 마감…코스닥도 상승</a></h3>
-          <p>27일 코스피는 전 거래일 대비 104.16포인트(+1.53%) 오른 6,912.37에 마감했다. 장중 한국은행 금융통화위원회가 기준금리를 2.75%에서 3%로 0.25%포인트 올리며 두 달 연속 인상을 결정해 상승폭이 다소 줄었지만, 엔비디아 실적 호조에 따른 AI 반도체주 강세가 지수를 끌어올렸다. 코스닥도 이차전지주 강세에 힘입어 837선까지 오르며 상승 마감했다.</p>
-          <div class="meta">아주경제·한국경제 · 2026-08-27(목) 종가 기준 · <a href="https://www.ajunews.com/view/20260827153508146" target="_blank" rel="noopener">기사 보기</a></div>
+          <span class="tag">금리</span>
+          <h3><a href="https://biz.heraldcorp.com/article/10854049" target="_blank" rel="noopener">금리 '2연속 인상'…성장률 3.3%로↑</a></h3>
+          <p>한국은행이 기준금리를 2.75%에서 3.00%로 두 달 연속 인상하면서, 올해 경제성장률 전망치도 2.6%에서 3.3%로 상향 조정했다.</p>
+          <div class="meta">헤럴드경제 · 2026-08-27 · <a href="https://biz.heraldcorp.com/article/10854049" target="_blank" rel="noopener">기사 보기</a></div>
         </div>
         <div class="news-card">
-          <span class="tag">미장</span>
-          <h3><a href="https://en.bloomingbit.io/feed/news/119104" target="_blank" rel="noopener">뉴욕증시, 엔비디아 실적 서프라이즈에 나스닥 0.66%↑…다우·S&amp;P는 소폭 하락</a></h3>
-          <p>현지시간 26일(수) 뉴욕증시는 엔비디아가 시장 예상을 웃도는 실적과 매출 가이던스를 발표하며 관련주 랠리를 이끌어 나스닥종합지수가 0.66% 오른 26,151.30에 마감했다. 다만 대형 우량주 중심인 다우존스산업평균은 0.21% 내린 53,463.88, S&amp;P500은 0.02% 내린 7,675.70으로 소폭 하락했다.</p>
-          <div class="meta">Bloomingbit·CNBC · 2026-08-26(수) 현지 종가 기준 · <a href="https://en.bloomingbit.io/feed/news/119104" target="_blank" rel="noopener">기사 보기</a></div>
+          <span class="tag">가계부채</span>
+          <h3><a href="https://www.ajunews.com/view/20260827144051927" target="_blank" rel="noopener">한은은 두 달 연속 올리고 정부는 30조 풀고…가계부채 정책 '엇박자'</a></h3>
+          <p>한국은행이 가계부채 억제를 위해 기준금리를 올린 반면, 금융당국은 가계대출 한도를 30조원 늘리기로 하면서 통화정책과 금융정책이 엇박자를 내고 있다.</p>
+          <div class="meta">아주경제 · 2026-08-27 · <a href="https://www.ajunews.com/view/20260827144051927" target="_blank" rel="noopener">기사 보기</a></div>
         </div>
         <div class="news-card">
-          <span class="tag">환율</span>
-          <h3><a href="https://www.betanews.net/article/view/beta202608270086" target="_blank" rel="noopener">원·달러 환율, 금리 인상에 1377원 터치 후 반등…1380.9원 마감</a></h3>
-          <p>27일 원·달러 환율은 한국은행의 기준금리 인상 발표 직후 1,377원대까지 낙폭을 키웠으나, 시장 예상보다 덜 매파적인 스탠스가 확인되며 반등해 전 거래일 대비 소폭 내린 1,380.9원에 마감했다. 이창용 한은 총재는 "환율 수준이 아직 높다"며 원화 강세가 바람직하다는 입장을 밝혔다.</p>
-          <div class="meta">베타뉴스 · 2026-08-27(목) 마감 기준 · <a href="https://www.betanews.net/article/view/beta202608270086" target="_blank" rel="noopener">기사 보기</a></div>
+          <span class="tag">소비심리</span>
+          <h3><a href="https://biz.heraldcorp.com/article/10850505" target="_blank" rel="noopener">주가 변동성 확대에…8월 소비자 체감경기 4개월 만에 하락 전환</a></h3>
+          <p>국내 증시 조정과 누적된 물가 상승 영향으로 8월 소비자심리지수(CCSI)가 104.5로 떨어지며 4개월 만에 하락세로 돌아섰다.</p>
+          <div class="meta">헤럴드경제 · 2026-08-25 · <a href="https://biz.heraldcorp.com/article/10850505" target="_blank" rel="noopener">기사 보기</a></div>
         </div>
         <div class="news-card">
-          <span class="tag">반도체주</span>
-          <h3><a href="https://www.ajunews.com/view/20260827153508146" target="_blank" rel="noopener">삼성전자 1.72%·SK하이닉스 2.49%·삼성전기 4.13%↑…AI 반도체주 동반 강세</a></h3>
-          <p>27일 코스피 시가총액 상위 종목 가운데 삼성전자(+1.72%), SK하이닉스(+2.49%), 삼성전기(+4.13%), SK스퀘어(+0.95%) 등 AI 반도체 관련주가 일제히 강세를 보였다. 전날 엔비디아의 호실적 발표가 글로벌 반도체 업황 기대감을 자극한 영향으로 풀이된다.</p>
-          <div class="meta">아주경제 · 2026-08-27(목) 종가 기준 · <a href="https://www.ajunews.com/view/20260827153508146" target="_blank" rel="noopener">기사 보기</a></div>
+          <span class="tag">수출</span>
+          <h3><a href="https://biz.heraldcorp.com/article/10847745" target="_blank" rel="noopener">8월 1~20일 수출 552억달러…반도체 비중 47.2% 역대 최고</a></h3>
+          <p>8월 1~20일 수출액이 전년 동기 대비 56% 늘어난 552억달러를 기록했으며, 반도체가 전체 수출의 47.2%를 차지해 역대 최고 비중을 나타냈다.</p>
+          <div class="meta">헤럴드경제 · 2026-08-21 · <a href="https://biz.heraldcorp.com/article/10847745" target="_blank" rel="noopener">기사 보기</a></div>
+        </div>
+        <div class="news-card">
+          <span class="tag">고용</span>
+          <h3><a href="https://biz.heraldcorp.com/article/10838371" target="_blank" rel="noopener">7월 취업자 10.8만명 증가했지만…청년실업률 5년반만에 최대폭↑</a></h3>
+          <p>7월 전체 취업자는 10만8000명 늘었지만 청년층 취업자는 45개월 연속 감소했고 청년 실업률은 6.8%로 1.3%포인트 뛰었다.</p>
+          <div class="meta">헤럴드경제 · 2026-08-12 · <a href="https://biz.heraldcorp.com/article/10838371" target="_blank" rel="noopener">기사 보기</a></div>
         </div>
       </div>
 
@@ -336,18 +399,69 @@
         </div>
       </div>
 
-      <div class="subpanel" id="etc">
+      <div class="subpanel" id="kfood">
         <div class="news-card">
-          <span class="tag">기타</span>
-          <h3><a href="https://www.washingtonpost.com/world/2026/08/26/climate-change-nepal-flash-floods/16a72362-a137-11f1-8606-1d40ad00172e_story.html" target="_blank" rel="noopener">네팔·티베트 국경 빙하 붕괴로 대홍수…최소 350명 사망, 1300여명 실종</a></h3>
-          <p>26일 네팔-중국(티베트) 국경 지역에서 해발 5,200m 지점의 빙하 일부가 붕괴해 계곡으로 쏟아지며 대규모 홍수를 일으켜 최소 350명이 숨지고 1,300여명이 실종됐다. 트리술리강 수위가 30분 만에 9m 급상승하는 등 피해가 컸으며, 접근이 어려운 지역이 많아 사망자는 더 늘어날 전망이다.</p>
-          <div class="meta">The Washington Post·NPR · 2026-08-26 · <a href="https://www.washingtonpost.com/world/2026/08/26/climate-change-nepal-flash-floods/16a72362-a137-11f1-8606-1d40ad00172e_story.html" target="_blank" rel="noopener">기사 보기</a></div>
+          <span class="tag">K-food</span>
+          <h3><a href="http://sateconomy.co.kr/news/view/1065585580545752" target="_blank" rel="noopener">삼립, 공장 없이 美 코스트코 뚫었다…수출 49.9% 증가</a></h3>
+          <p>SPC삼립이 해외 공장 없이 국내 생산 제품을 미국 코스트코에 시험 판매해 대규모 추가 주문을 받으며 2분기 수출이 약 50% 늘었다.</p>
+          <div class="meta">토요경제 · 2026-08-27 · <a href="http://sateconomy.co.kr/news/view/1065585580545752" target="_blank" rel="noopener">기사 보기</a></div>
         </div>
         <div class="news-card">
-          <span class="tag">기타</span>
-          <h3><a href="https://www.pbs.org/newshour/nation/meta-reaches-17-billion-settlement-with-states-in-landmark-trial-over-teen-social-media-addiction" target="_blank" rel="noopener">메타, 청소년 SNS 중독 소송 47개 주와 170억달러 합의…'좋아요' 제한 등 안전장치 도입</a></h3>
-          <p>메타가 자사 플랫폼이 청소년 중독을 유발하도록 설계됐다며 47개 주가 제기한 소송과 관련해 최대 170억달러 규모의 합의안에 도달했다. 인스타그램·페이스북에 하루 이용시간 상한제, 등교시간 알림 중단, '좋아요' 수 등 사회적 비교 기능 제한 등 청소년 보호 장치를 도입하기로 했다.</p>
-          <div class="meta">PBS NewsHour · 2026-08-26 · <a href="https://www.pbs.org/newshour/nation/meta-reaches-17-billion-settlement-with-states-in-landmark-trial-over-teen-social-media-addiction" target="_blank" rel="noopener">기사 보기</a></div>
+          <span class="tag">K-food</span>
+          <h3><a href="https://www.newscj.com/news/articleView.html?idxno=3425514" target="_blank" rel="noopener">CJ, 美 K-푸드 영토 넓힌다…비비고·뚜레쥬르 '쌍끌이'</a></h3>
+          <p>CJ제일제당과 CJ푸드빌이 비비고 냉동식품과 뚜레쥬르 베이커리를 앞세워 미국 현지 생산·유통망을 확대하며 K-푸드 영토를 넓히고 있다.</p>
+          <div class="meta">천지일보 · 2026-08-16 · <a href="https://www.newscj.com/news/articleView.html?idxno=3425514" target="_blank" rel="noopener">기사 보기</a></div>
+        </div>
+        <div class="news-card">
+          <span class="tag">K-food</span>
+          <h3><a href="https://www.asiae.co.kr/en/article/2026080515002491399" target="_blank" rel="noopener">K-Food 인기 고공행진…해외 진출 외식기업 200개 첫 돌파</a></h3>
+          <p>올해 2분기 기준 해외에 진출한 국내 외식기업이 203개로 사상 처음 200개를 넘어섰으며, 미국이 가장 인기 있는 진출국으로 나타났다.</p>
+          <div class="meta">아시아경제 · 2026-08-05 · <a href="https://www.asiae.co.kr/en/article/2026080515002491399" target="_blank" rel="noopener">기사 보기</a></div>
+        </div>
+        <div class="news-card">
+          <span class="tag">K-food</span>
+          <h3><a href="https://www.hankyung.com/article/2026073185261" target="_blank" rel="noopener">"수출 영토 넓히자"…라면 공장 신설 경쟁</a></h3>
+          <p>미국·유럽에서 K라면 수요가 급증하자 농심·삼양식품·오뚜기 등이 수출 전용 생산시설 확충 경쟁에 나섰다.</p>
+          <div class="meta">한국경제 · 2026-07-31 · <a href="https://www.hankyung.com/article/2026073185261" target="_blank" rel="noopener">기사 보기</a></div>
+        </div>
+        <div class="news-card">
+          <span class="tag">K-food</span>
+          <h3><a href="https://www.theguru.co.kr/news/article.html?no=104620" target="_blank" rel="noopener">BBQ, 美 켄터키주 루이빌에 첫 깃발…K치킨 영토 확장</a></h3>
+          <p>제너시스BBQ그룹이 미국 켄터키주 루이빌에 첫 매장을 열며 기존 하디스 건물을 리모델링해 북미 매장망을 넓히고 있다.</p>
+          <div class="meta">더구루 · 2026-07-20 · <a href="https://www.theguru.co.kr/news/article.html?no=104620" target="_blank" rel="noopener">기사 보기</a></div>
+        </div>
+      </div>
+
+      <div class="subpanel" id="world">
+        <div class="news-card">
+          <span class="tag">세계</span>
+          <h3><a href="https://www.spokesman.com/stories/2026/aug/27/feds-collins-says-latest-us-inflation-readings-are/" target="_blank" rel="noopener">연준 콜린스 총재 "최근 물가지표 혼재…금리 인상 필요할 수도"</a></h3>
+          <p>보스턴 연방준비은행 총재 수전 콜린스는 최근 물가 지표가 "혼재된" 모습이라며, 인플레이션 둔화가 지속되지 않으면 금리 인상이 필요할 수 있다고 밝혔다.</p>
+          <div class="meta">The Spokesman-Review(AP) · 2026-08-27 · <a href="https://www.spokesman.com/stories/2026/aug/27/feds-collins-says-latest-us-inflation-readings-are/" target="_blank" rel="noopener">기사 보기</a></div>
+        </div>
+        <div class="news-card">
+          <span class="tag">세계</span>
+          <h3><a href="https://www.cnn.com/2026/08/26/politics/us-alleged-chinese-cyber-spying-campaign" target="_blank" rel="noopener">美 "중국 해커, 병원·정부기관·군 네트워크 겨냥"</a></h3>
+          <p>미국 법무부는 중국과 연계된 해킹조직이 NASA·연방준비제도·법무부 등 다수 연방기관과 병원, 군 네트워크를 수년간 침투했다고 밝히며 관련 도메인을 압류했다.</p>
+          <div class="meta">CNN · 2026-08-26 · <a href="https://www.cnn.com/2026/08/26/politics/us-alleged-chinese-cyber-spying-campaign" target="_blank" rel="noopener">기사 보기</a></div>
+        </div>
+        <div class="news-card">
+          <span class="tag">세계</span>
+          <h3><a href="https://www.aljazeera.com/news/2026/8/27/iran-qatar-hold-hormuz-talks-amid-intl-hopes-dialogue-with-us-will-resume" target="_blank" rel="noopener">이란-카타르, 호르무즈 해협 관련 회담…美-이란 대화 재개 기대</a></h3>
+          <p>카타르 총리 겸 외무장관이 테헤란을 방문해 이란 외무장관과 호르무즈 해협 임시 통항로 개설 등을 논의하며 미·이란 대화 재개를 위한 중재에 나섰다.</p>
+          <div class="meta">Al Jazeera · 2026-08-27 · <a href="https://www.aljazeera.com/news/2026/8/27/iran-qatar-hold-hormuz-talks-amid-intl-hopes-dialogue-with-us-will-resume" target="_blank" rel="noopener">기사 보기</a></div>
+        </div>
+        <div class="news-card">
+          <span class="tag">세계</span>
+          <h3><a href="https://www.aljazeera.com/news/2026/8/27/nepal-tibet-floods-what-happened-what-caused-them-and-who-is-missing" target="_blank" rel="noopener">네팔-중국 국경 대홍수, 무엇이 원인이고 누가 실종됐나</a></h3>
+          <p>네팔·중국 접경에서 빙하 붕괴로 촉발된 대규모 홍수가 발생해 네팔에서 389명이 숨지고 910명이 실종됐으며, 미국인 90명의 안전도 확인되지 않고 있다.</p>
+          <div class="meta">Al Jazeera · 2026-08-27 · <a href="https://www.aljazeera.com/news/2026/8/27/nepal-tibet-floods-what-happened-what-caused-them-and-who-is-missing" target="_blank" rel="noopener">기사 보기</a></div>
+        </div>
+        <div class="news-card">
+          <span class="tag">세계</span>
+          <h3><a href="https://www.aljazeera.com/news/2026/8/26/world-health-organization-says-ebola-outbreak-in-uganda-is-over" target="_blank" rel="noopener">WHO, 우간다 에볼라 발병 종료 선언</a></h3>
+          <p>세계보건기구(WHO)는 마지막 환자 퇴원 이후 42일간 추가 확진자가 없었다며 우간다의 에볼라(분디부교 바이러스) 발병 종료를 공식 선언했다.</p>
+          <div class="meta">Al Jazeera · 2026-08-26 · <a href="https://www.aljazeera.com/news/2026/8/26/world-health-organization-says-ebola-outbreak-in-uganda-is-over" target="_blank" rel="noopener">기사 보기</a></div>
         </div>
       </div>
     </section>
