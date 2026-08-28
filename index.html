@@ -191,19 +191,6 @@
   .news-card .meta a {
     color: #9ca3af;
   }
-  .empty-state {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 300px;
-    color: var(--muted);
-  }
-  .empty-state .icon {
-    font-size: 2.5rem;
-    margin-bottom: 12px;
-    opacity: 0.5;
-  }
 
   /* 모바일 대응 */
   @media (max-width: 700px) {
@@ -254,9 +241,6 @@
   <nav>
     <button class="folder-btn active" data-folder="folder1">
       <span class="folder-icon">📁</span> 1. 뉴스 클리핑
-    </button>
-    <button class="folder-btn" data-folder="folder2">
-      <span class="folder-icon">📁</span> 2. 무제
     </button>
   </nav>
 
@@ -463,14 +447,6 @@
           <p>세계보건기구(WHO)는 마지막 환자 퇴원 이후 42일간 추가 확진자가 없었다며 우간다의 에볼라(분디부교 바이러스) 발병 종료를 공식 선언했다.</p>
           <div class="meta">Al Jazeera · 2026-08-26 · <a href="https://www.aljazeera.com/news/2026/8/26/world-health-organization-says-ebola-outbreak-in-uganda-is-over" target="_blank" rel="noopener">기사 보기</a></div>
         </div>
-      </div>
-    </section>
-
-    <!-- Folder 2: 무제 -->
-    <section class="panel" id="folder2">
-      <div class="empty-state">
-        <div class="icon">📂</div>
-        <div>아직 내용이 없습니다.</div>
       </div>
     </section>
   </main>
