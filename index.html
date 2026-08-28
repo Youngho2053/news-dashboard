@@ -35,46 +35,88 @@
     font-size: 0.85rem;
     opacity: 0.9;
   }
-  .layout {
-    display: flex;
-    min-height: calc(100vh - 84px);
-  }
-  nav {
-    width: 220px;
-    background: var(--card);
-    border-right: 1px solid var(--border);
-    padding: 16px 0;
-    flex-shrink: 0;
-  }
-  .folder-btn {
+  .header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
     display: flex;
     align-items: center;
-    gap: 10px;
-    width: 100%;
-    padding: 12px 20px;
-    background: none;
-    border: none;
-    text-align: left;
-    font-size: 0.95rem;
-    color: var(--text);
-    cursor: pointer;
-    border-left: 3px solid transparent;
+    justify-content: space-between;
+    gap: 20px;
   }
-  .folder-btn:hover {
-    background: #f0f6fa;
+  .search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 22px;
+    padding: 0 12px 0 36px;
+    width: 300px;
+    max-width: 100%;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
   }
-  .folder-btn.active {
-    background: #eaf5fb;
-    border-left-color: var(--sky-dark);
-    font-weight: 600;
+  .search-box .search-icon {
+    position: absolute;
+    left: 13px;
+    font-size: 0.9rem;
+    opacity: 0.55;
+    pointer-events: none;
   }
-  .folder-icon { font-size: 1.1rem; }
-  main {
+  .search-box input {
     flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 10px 0;
+    font-size: 0.88rem;
+    font-family: inherit;
+    color: var(--text);
+    min-width: 0;
+  }
+  .search-box input::-webkit-search-cancel-button { display: none; }
+  .search-clear {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 1.15rem;
+    line-height: 1;
+    color: var(--muted);
+    padding: 0 2px;
+    display: none;
+  }
+  .search-box.has-value .search-clear { display: block; }
+
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
     padding: 28px 32px;
   }
   .panel { display: none; }
   .panel.active { display: block; }
+
+  /* 검색 모드 */
+  .search-group-label {
+    display: none;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--sky-dark);
+    background: #eaf5fb;
+    border-radius: 6px;
+    padding: 5px 10px;
+    margin: 0 0 10px;
+  }
+  body.searching .subpanel { display: none; }
+  body.searching .subpanel.has-match { display: block; }
+  body.searching .search-group-label { display: inline-block; }
+  body.searching .subtabs { display: none; }
+  body.searching .vc-note { display: none; }
+  body.searching .subsection-title { display: none; }
+  .search-status {
+    display: none;
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  body.searching .search-status { display: block; }
 
   .update-banner {
     background: #eaf5fb;
@@ -196,26 +238,12 @@
   @media (max-width: 700px) {
     header { padding: 16px 18px; }
     header h1 { font-size: 1.25rem; }
-    .layout { flex-direction: column; min-height: auto; }
-    nav {
-      width: 100%;
-      display: flex;
-      border-right: none;
-      border-bottom: 1px solid var(--border);
-      padding: 0;
-      overflow-x: auto;
+    .header-inner {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
     }
-    .folder-btn {
-      width: auto;
-      white-space: nowrap;
-      padding: 12px 16px;
-      border-left: none;
-      border-bottom: 3px solid transparent;
-    }
-    .folder-btn.active {
-      border-left-color: transparent;
-      border-bottom-color: var(--sky-dark);
-    }
+    .search-box { width: 100%; }
     main { padding: 18px 16px; }
     .subtabs {
       flex-wrap: nowrap;
@@ -233,21 +261,22 @@
 <body>
 
 <header>
-  <h1>뉴스 대시보드</h1>
-  <p>Hello World</p>
+  <div class="header-inner">
+    <h1>뉴스 대시보드</h1>
+    <div class="search-box" id="searchBox">
+      <span class="search-icon">🔍</span>
+      <input type="search" id="searchInput" placeholder="뉴스 검색 (헤드라인·요약·기업명)" autocomplete="off">
+      <button type="button" class="search-clear" id="searchClear" aria-label="검색 지우기">&times;</button>
+    </div>
+  </div>
 </header>
-
-<div class="layout">
-  <nav>
-    <button class="folder-btn active" data-folder="folder1">
-      <span class="folder-icon">📁</span> 1. 뉴스 클리핑
-    </button>
-  </nav>
 
   <main>
     <!-- Folder 1: 뉴스 클리핑 -->
     <section class="panel active" id="folder1">
       <div class="update-banner">🕗 2026년 8월 28일(금) 기준 업데이트 · M&amp;A / 경제 / 정치 / K-food / 세계 5개 카테고리 · 각 기사 출처는 카드 하단 링크 참고</div>
+
+      <div class="search-status" id="searchStatus"></div>
 
       <div class="subtabs">
         <button class="subtab-btn active" data-sub="mna">M&amp;A</button>
@@ -450,18 +479,9 @@
       </div>
     </section>
   </main>
-</div>
 
 <script>
-  document.querySelectorAll('.folder-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.folder-btn').forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById(btn.dataset.folder).classList.add('active');
-    });
-  });
-
+  // ── 탭 전환 ──────────────────────────────────────────────
   document.querySelectorAll('.subtab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.subtab-btn').forEach(b => b.classList.remove('active'));
@@ -470,6 +490,84 @@
       document.getElementById(btn.dataset.sub).classList.add('active');
     });
   });
+
+  // ── 검색 ────────────────────────────────────────────────
+  (function () {
+    const input = document.getElementById('searchInput');
+    const box = document.getElementById('searchBox');
+    const clearBtn = document.getElementById('searchClear');
+    const status = document.getElementById('searchStatus');
+    if (!input) return;
+
+    // 각 subpanel 맨 위에 카테고리 라벨 삽입 (검색 모드에서만 표시)
+    const labels = {};
+    document.querySelectorAll('.subtab-btn').forEach(btn => {
+      labels[btn.dataset.sub] = btn.textContent.trim();
+    });
+    document.querySelectorAll('.subpanel').forEach(panel => {
+      const label = document.createElement('div');
+      label.className = 'search-group-label';
+      label.textContent = labels[panel.id] || panel.id;
+      panel.insertBefore(label, panel.firstChild);
+    });
+
+    // 검색 대상: 뉴스카드 + 딜 테이블 행
+    const items = [];
+    document.querySelectorAll('.subpanel').forEach(panel => {
+      panel.querySelectorAll('.news-card, .vc-deal-table tbody tr').forEach(el => {
+        items.push({ el: el, panel: panel, text: el.textContent.toLowerCase() });
+      });
+    });
+
+    function run(query) {
+      const q = query.trim().toLowerCase();
+      box.classList.toggle('has-value', q.length > 0);
+
+      if (!q) {
+        document.body.classList.remove('searching');
+        items.forEach(it => { it.el.style.display = ''; });
+        document.querySelectorAll('.subpanel').forEach(p => p.classList.remove('has-match'));
+        document.querySelectorAll('.vc-deal-table').forEach(t => {
+          t.parentElement.style.display = '';
+        });
+        return;
+      }
+
+      document.body.classList.add('searching');
+      let hits = 0;
+      const matchedPanels = new Set();
+      const tableHits = new Map();
+
+      items.forEach(it => {
+        const match = it.text.includes(q);
+        it.el.style.display = match ? '' : 'none';
+        if (match) { hits++; matchedPanels.add(it.panel); }
+        if (it.el.tagName === 'TR') {
+          const table = it.el.closest('.vc-deal-table');
+          tableHits.set(table, (tableHits.get(table) || 0) + (match ? 1 : 0));
+        }
+      });
+
+      // 매칭 행이 하나도 없는 표는 통째로 숨김
+      tableHits.forEach((count, table) => {
+        table.parentElement.style.display = count ? '' : 'none';
+      });
+
+      document.querySelectorAll('.subpanel').forEach(p => {
+        p.classList.toggle('has-match', matchedPanels.has(p));
+      });
+
+      status.textContent = hits
+        ? '"' + query.trim() + '" 검색 결과 ' + hits + '건'
+        : '"' + query.trim() + '" 에 해당하는 뉴스가 없습니다.';
+    }
+
+    input.addEventListener('input', () => run(input.value));
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Escape') { input.value = ''; run(''); input.blur(); }
+    });
+    clearBtn.addEventListener('click', () => { input.value = ''; run(''); input.focus(); });
+  })();
 </script>
 
 </body>
