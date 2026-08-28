@@ -43,6 +43,31 @@
     justify-content: space-between;
     gap: 20px;
   }
+  .header-tools {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .refresh-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    padding: 9px 14px;
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    color: #fff;
+    font-size: 0.83rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .refresh-btn:hover {
+    background: rgba(255, 255, 255, 0.32);
+  }
+  .refresh-icon { font-size: 0.9rem; }
+
   .search-box {
     position: relative;
     display: flex;
@@ -243,7 +268,9 @@
       align-items: stretch;
       gap: 12px;
     }
+    .header-tools { flex-direction: column; align-items: stretch; gap: 10px; }
     .search-box { width: 100%; }
+    .refresh-btn { justify-content: center; }
     main { padding: 18px 16px; }
     .subtabs {
       flex-wrap: nowrap;
@@ -263,10 +290,15 @@
 <header>
   <div class="header-inner">
     <h1>뉴스 대시보드</h1>
-    <div class="search-box" id="searchBox">
-      <span class="search-icon">🔍</span>
-      <input type="search" id="searchInput" placeholder="뉴스 검색 (헤드라인·요약·기업명)" autocomplete="off">
-      <button type="button" class="search-clear" id="searchClear" aria-label="검색 지우기">&times;</button>
+    <div class="header-tools">
+      <div class="search-box" id="searchBox">
+        <span class="search-icon">🔍</span>
+        <input type="search" id="searchInput" placeholder="뉴스 검색 (헤드라인·요약·기업명)" autocomplete="off">
+        <button type="button" class="search-clear" id="searchClear" aria-label="검색 지우기">&times;</button>
+      </div>
+      <a class="refresh-btn" href="https://claude.ai/code/routines/trig_01FVkRmW7cU16FyauxMoPsyZ" target="_blank" rel="noopener" title="Claude 루틴 페이지에서 '지금 실행'을 누르면 뉴스가 갱신됩니다">
+        <span class="refresh-icon">🔄</span> 수동 업데이트
+      </a>
     </div>
   </div>
 </header>
